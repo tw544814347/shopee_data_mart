@@ -1,0 +1,85 @@
+drop table if exists ${SCHEMA}.dwd_risk_mx_uw_aai_multi_platform_df;
+
+create external table if not exists ${SCHEMA}.dwd_risk_mx_uw_aai_multi_platform_df(
+    flow_no string comment 'flow_no'
+    ,user_id    string comment 'platform_user_id'
+    ,request_id string comment ''
+    ,request_datetime   string comment 'request_datetime'
+    ,request_date   string comment 'request_date'
+    ,extra  string  comment 'extra'
+    ,pricing_strategy   string comment 'pricing strategy'
+    ,code   string comment 'code'
+    ,transaction_id string comment 'transaction_id'
+    ,message    string comment 'message'
+    ,gd_x_1 decimal(30,10) comment 'gd_x'
+    ,gd_x_2 decimal(30,10) comment 'gd_x'
+    ,gd_x_3 decimal(30,10) comment 'gd_x'
+    ,gd_x_4 decimal(30,10) comment 'gd_x'
+    ,gd_x_5 decimal(30,10) comment 'gd_x'
+    ,gd_x_6 decimal(30,10) comment 'gd_x'
+    ,gd_x_7 decimal(30,10) comment 'gd_x'
+    ,gd_x_8 decimal(30,10) comment 'gd_x'
+    ,gd_x_9 decimal(30,10) comment 'gd_x'
+    ,gd_x_10 decimal(30,10) comment 'gd_x'
+    ,gd_x_11 decimal(30,10) comment 'gd_x'
+    ,gd_x_12 decimal(30,10) comment 'gd_x'
+    ,gd_x_13 decimal(30,10) comment 'gd_x'
+    ,gd_x_14 decimal(30,10) comment 'gd_x'
+    ,gd_x_15 decimal(30,10) comment 'gd_x'
+    ,gd_x_16 decimal(30,10) comment 'gd_x'
+    ,gd_x_17 decimal(30,10) comment 'gd_x'
+    ,gd_x_18 decimal(30,10) comment 'gd_x'
+    ,gd_x_19 decimal(30,10) comment 'gd_x'
+    ,gd_x_20 decimal(30,10) comment 'gd_x'
+    ,gd_x_21 decimal(30,10) comment 'gd_x'
+    ,gd_x_22 decimal(30,10) comment 'gd_x'
+    ,gd_x_23 decimal(30,10) comment 'gd_x'
+    ,gd_x_24 decimal(30,10) comment 'gd_x'
+    ,gd_x_25 decimal(30,10) comment 'gd_x'
+    ,gd_x_26 decimal(30,10) comment 'gd_x'
+    ,gd_x_27 decimal(30,10) comment 'gd_x'
+    ,gd_x_28 decimal(30,10) comment 'gd_x'
+    ,gd_x_29 decimal(30,10) comment 'gd_x'
+    ,gd_x_30 decimal(30,10) comment 'gd_x'
+    ,gd_x_31 decimal(30,10) comment 'gd_x'
+    ,gd_x_32 decimal(30,10) comment 'gd_x'
+    ,gd_x_33 decimal(30,10) comment 'gd_x'
+    ,gd_x_34 decimal(30,10) comment 'gd_x'
+    ,gd_x_35 decimal(30,10) comment 'gd_x'
+    ,gd_x_36 decimal(30,10) comment 'gd_x'
+    ,gd_x_37 decimal(30,10) comment 'gd_x'
+    ,gd_x_38 decimal(30,10) comment 'gd_x'
+    ,gd_x_39 decimal(30,10) comment 'gd_x'
+    ,gd_x_40 decimal(30,10) comment 'gd_x'
+    ,gd_x_41 decimal(30,10) comment 'gd_x'
+    ,gd_x_42 decimal(30,10) comment 'gd_x'
+    ,gd_x_43 decimal(30,10) comment 'gd_x'
+    ,gd_x_44 decimal(30,10) comment 'gd_x'
+    ,gd_x_45 decimal(30,10) comment 'gd_x'
+    ,gd_x_46 decimal(30,10) comment 'gd_x'
+    ,gd_x_47 decimal(30,10) comment 'gd_x'
+    ,gd_x_48 decimal(30,10) comment 'gd_x'
+    ,gd_x_49 decimal(30,10) comment 'gd_x'
+    ,gd_x_50 decimal(30,10) comment 'gd_x'
+    ,gd_x_51 decimal(30,10) comment 'gd_x'
+    ,gd_x_52 decimal(30,10) comment 'gd_x'
+    ,gd_x_53 decimal(30,10) comment 'gd_x'
+    ,gd_x_54 decimal(30,10) comment 'gd_x'
+    ,gd_x_55 decimal(30,10) comment 'gd_x'
+    ,gd_x_56 decimal(30,10) comment 'gd_x'
+    ,gd_x_57 decimal(30,10) comment 'gd_x'
+    ,gd_x_58 decimal(30,10) comment 'gd_x'
+)
+partitioned by
+(
+    grass_date string comment 'grass_date, partition key'
+)
+stored as orc
+tblproperties
+(
+    "orc.compress" = "zstd","orc.stripe.size"="268435456"
+)
+location '${HDFS_PATH}/risk_mart/dwd/dwd_risk_uw_aai_multi_platform_df/grass_region=MX';
+msck repair table ${SCHEMA}.dwd_risk_mx_uw_aai_multi_platform_df;
+
+

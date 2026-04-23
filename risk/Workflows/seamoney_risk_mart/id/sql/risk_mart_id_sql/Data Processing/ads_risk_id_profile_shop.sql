@@ -1,0 +1,2 @@
+alter table ${SCHEMA}.ads_risk_id_profile_shop add if not exists partition(grass_date='${ds}')
+location 'hdfs://R2/projects/risk/hdfs/prod/risk_mart/ads/ads_risk_profile_user_df/tz_type=local/grass_region=ID/grass_date=${ds}';

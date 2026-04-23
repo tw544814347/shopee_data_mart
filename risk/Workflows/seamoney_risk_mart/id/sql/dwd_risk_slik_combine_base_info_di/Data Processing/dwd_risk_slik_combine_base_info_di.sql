@@ -1,0 +1,1 @@
+-- MSCK REPAIR TABLE risk.dwd_risk_slik_combine_base_info_di;

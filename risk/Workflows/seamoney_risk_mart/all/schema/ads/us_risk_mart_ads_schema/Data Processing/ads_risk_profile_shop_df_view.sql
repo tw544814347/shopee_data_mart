@@ -1,0 +1,77 @@
+create or replace  view risk.ads_risk_profile_shop_df_view as   select 
+shop_id
+,user_id
+,shopee_acct_status as shopee_acct_status
+,is_b2c as seller_is_b2c
+,is_big_seller as seller_is_big_seller
+,is_official_store_tag as seller_is_official_store_tag
+,is_preferred as seller_is_preferred
+,holiday_mode_on as seller_holiday_mode_on
+,main_category as seller_main_category
+,sub_category as seller_sub_category
+,seller_shopee_age as seller_shopee_age
+,response_rate as seller_response_rate
+,rating_star as seller_rating_star
+,shop_like_cnt_td as seller_shop_like_cnt_td
+,txn_days_in_180d as seller_txn_days_in_180d
+,max_inactivate_days_in_180d as seller_max_inactivate_days_in_180d
+,open_more_than_6m as seller_open_more_than_6m
+,open_more_than_12m as seller_open_more_than_12m
+,has_order_month_last_3m as seller_has_order_month_last_3m
+,has_order_month_last_6m as seller_has_order_month_last_6m
+,cancellation_rate_l7d as seller_cancellation_rate_l7d
+,cancellation_rate_l30d as seller_cancellation_rate_l30d
+,avg_nmv_last_3m_tag as seller_avg_monthly_nmv_in_90d
+,avg_nmv_last_6m_tag as seller_avg_monthly_nmv_in_180d
+,avg_nmv_last_12m_tag as seller_avg_monthly_nmv_in_360d
+,buyer_in_30d as seller_dist_buyer_in_30d
+,buyer_in_31_60d as seller_dist_buyer_in_31_60d
+,buyer_in_61_90d as seller_dist_buyer_in_61_90d
+,buyer_in_91_120d as seller_dist_buyer_in_91_120d
+,buyer_in_121_150d as seller_dist_buyer_in_121_150d
+,buyer_in_151_180d as seller_dist_buyer_in_151_180d
+,gmv_in_3d as seller_gmv_in_3d
+,gmv_in_7d as seller_gmv_in_7d
+,gmv_in_8_14d as seller_gmv_in_8_14d
+,gmv_in_15_21d as seller_gmv_in_15_21d
+,gmv_in_22_28d as seller_gmv_in_22_28d
+,min_nmv_last_3m_tag as seller_min_monthly_nmv_in_90d
+,min_nmv_last_6m_tag as seller_min_monthly_nmv_in_180d
+,min_nmv_last_12m_tag as seller_min_monthly_nmv_in_360d
+,nmv_in_3d as seller_nmv_in_3d
+,nmv_in_7d as seller_nmv_in_7d
+,nmv_in_8_14d as seller_nmv_in_8_14d
+,nmv_in_15_21d as seller_nmv_in_15_21d
+,nmv_in_22_28d as seller_nmv_in_22_28d
+,nmv_in_30d as seller_nmv_in_30d 
+,nmv_in_31_60d as seller_nmv_in_31_60d
+,nmv_in_61_90d as seller_nmv_in_61_90d
+,nmv_in_91_120d as seller_nmv_in_91_120d
+,nmv_in_121_150d as seller_nmv_in_121_150d
+,nmv_in_151_180d as seller_nmv_in_151_180d
+,shop_penalty_point as shop_penalty_point
+,penalty_tier as penalty_tier
+,uniq_servere_fraud_tag_30d as uniq_servere_fraud_tag_30d
+,uniq_servere_fraud_tag_31_60d  as uniq_servere_fraud_tag_31_60d
+,uniq_servere_fraud_tag_61_90d  as uniq_servere_fraud_tag_61_90d
+,uniq_moderate_fraud_tag_30d as uniq_moderate_fraud_tag_30d
+,uniq_moderate_fraud_tag_31_60d as uniq_moderate_fraud_tag_31_60d
+,uniq_moderate_fraud_tag_61_90d as uniq_moderate_fraud_tag_61_90d
+,seller_type            as seller_type
+,cpf_chg_30d            as cpf_chg_30d
+,cpf_chg_15d            as cpf_chg_15d
+,last_chg_old_cpf       as last_chg_old_cpf
+,last_chg_new_cpf       as last_chg_new_cpf
+-- ,last_chg_date          as last_chg_date
+,cnpj_chg_30d           as cnpj_chg_30d
+,cnpj_chg_15d           as cnpj_chg_15d
+,last_chg_old_cnpj       as last_chg_old_cnpj
+,last_chg_new_cnpj       as last_chg_new_cnpj
+,last_cnpj_chg_date          as last_cnpj_chg_date
+,last_cpf_chg_date           as last_cpf_chg_date
+,has_cpf_cnpj_chg_30d        as has_cpf_cnpj_chg_30d
+,has_cnpj_cpf_chg_30d        as has_cnpj_cpf_chg_30d
+,tz_type
+,grass_region
+,grass_date
+from risk.ads_risk_profile_shop_df 

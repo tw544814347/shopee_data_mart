@@ -1,0 +1,94 @@
+-- drop TABLE if exists `risk`.`dwd_risk_br_spp_gateway_req_rsp_final_result_di_v3`;
+-- CREATE TABLE if not exists `risk`.`dwd_risk_br_spp_gateway_req_rsp_final_result_di_v3` (
+--   `risk_scene_id`                STRING  COMMENT 'secen_id',
+--   `id`                           BIGINT  COMMENT '',
+--   `risk_version`                 STRING  COMMENT 'Req.RiskReqHeader.Version',
+--   `app_id`                       STRING  COMMENT 'Req.RiskReqHeader.AppID',
+--   `scene_id`                     STRING  COMMENT 'Req.RiskReqHeader.SceneID',
+--   `flow_no`                      STRING  COMMENT 'Req.RiskReqHeader.FlowNo',
+--   `req_time`                     BIGINT  COMMENT 'Req.RiskReqHeader.ReqTime',
+--   `req_ip`                       STRING  COMMENT 'Req.RiskReqHeader.ReqIp',
+--   `req_server`                   STRING  COMMENT 'Req.RiskReqHeader.ReqServer',
+--   `req_memo`                     STRING  COMMENT 'Req.RiskReqHeader.ReqMemo',
+--   `reqno`                        STRING  COMMENT 'Req.RiskReqHeader.ReqNo',
+--   `workflowsceneid`              STRING  COMMENT 'Req.RiskReqHeader.WorkflowSceneID',
+--   `reqtype`                      STRING  COMMENT 'Req.RiskReqHeader.ReqType',
+--   `reqasync`                     STRING  COMMENT 'Req.RiskReqHeader.ReqAsync',
+--   `version`                      STRING  COMMENT 'ReqParams.CommonHeader.version',
+--   `seq_id`                       STRING  COMMENT 'ReqParams.CommonHeader.seq_id',
+--   `module`                       STRING  COMMENT 'ReqParams.CommonHeader.module',
+--   `cmd`                          STRING  COMMENT 'ReqParams.CommonHeader.cmd',
+--   `client_ip`                    STRING  COMMENT 'ReqParams.CommonHeader.client_ip',
+--   `device_type`                  STRING  COMMENT 'ReqParams.CommonHeader.device_type',
+--   `platform_type`                STRING  COMMENT 'ReqParams.CommonHeader.platform_type',
+--   `platform_token`               STRING  COMMENT 'ReqParams.CommonHeader.platform_token',
+--   `platform_user_id`             STRING  COMMENT 'ReqParams.CommonHeader.platform_user_id',
+--   `credit_user_id`               STRING  COMMENT 'ReqParams.CommonHeader.credit_user_id',
+--   `region`                       STRING  COMMENT 'ReqParams.CommonHeader.region',
+--   `device_brand`                 STRING  COMMENT 'ReqParams.CommonHeader.device_brand',
+--   `device_id`                    STRING  COMMENT 'ReqParams.CommonHeader.device_id',
+--   `system_type`                  STRING  COMMENT 'ReqParams.CommonHeader.system_type',
+--   `system_version`               STRING  COMMENT 'ReqParams.CommonHeader.system_version',
+--   `app_version`                  STRING  COMMENT 'ReqParams.CommonHeader.app_version',
+--   `imei`                         STRING  COMMENT 'ReqParams.CommonHeader.imei',
+--   `device_fingerprint`           STRING  COMMENT 'ReqParams.CommonHeader.device_fingerprint',
+--   `lang`                         STRING  COMMENT 'ReqParams.CommonHeader.lang',
+--   `from_source`                  STRING  COMMENT 'ReqParams.CommonHeader.from',
+--   `extension`                    STRING  COMMENT 'ReqParams',
+--   `handle_begin_time`            BIGINT  COMMENT 'Rsp.RiskInsight.HandleBeginTime',
+--   `handle_end_time`              BIGINT  COMMENT 'Rsp.RiskInsight.HandleEndTime',
+--   `strategy_id`                  STRING  COMMENT 'Rsp.RiskInsight.StrategyId',
+--   `strategy_version`             STRING  COMMENT '0',
+--   `final_result`                 STRING  COMMENT 'Rsp.RiskInsight.CheckResult',
+--   `reasons`                      STRING  COMMENT 'Rsp.RiskInsight.Reasons',
+--   `mark`                         STRING  COMMENT 'Rsp.RiskInsight.Mark',
+--   `create_time`                  BIGINT  COMMENT 'Req.RiskReqHeader.ReqTime',
+--   `event_result`                 STRING  COMMENT '-1',
+--   `gps_status`                   STRING  COMMENT 'ReqParams.CommonHeader.location.status',
+--   `gps_longitude`                STRING  COMMENT 'ReqParams.CommonHeader.location.longitude',
+--   `gps_latitude`                 STRING  COMMENT 'ReqParams.CommonHeader.location.latitude',
+--   `device_model`                 STRING  COMMENT 'ReqParams.CommonHeader.device_model',
+--   `network_type`                 STRING  COMMENT 'ReqParams.CommonHeader.network_type',
+--   `cellular_type`                STRING  COMMENT 'ReqParams.CommonHeader.cellular_type',
+--   `workflow_flow_no`             STRING  COMMENT 'Req.RiskReqHeader.WorkflowFlowNo',
+--   `event_code`                   STRING  COMMENT 'ReqParams.CommonHeader.event_code',
+--   `shopeepay_user_id`            STRING  COMMENT 'ReqParams.CommonHeader.shopeepay_user_id',
+--   `app_type`                     STRING  COMMENT 'ReqParams.CommonHeader.app_type',
+--   `szdf_token`                   STRING  COMMENT 'ReqParams.CommonHeader.szdf_token',
+--   `check_result`                 STRING  COMMENT 'RspExtension.CheckResult',
+--   `check_result_code`            STRING  COMMENT 'RspExtension.check_result_code',
+--   `additional_code`              STRING  COMMENT 'RspExtension.additional_code',
+--   `freeze_time`                  BIGINT  COMMENT 'RspExtension.freeze_time',
+--   `encrypted_bank_account_no`    STRING  COMMENT 'encrypted_bank_account_no',
+--   `encrypted_recipient_account`  STRING  COMMENT 'encrypted_recipient_account',
+--   `req_from`                     STRING,
+--   `kafka_source`                 STRING  COMMENT 'ingest kafka data',
+--   `topic_name`                   STRING  COMMENT 'topic_name',
+--   `grass_date`                   STRING  COMMENT 'reqtime',
+--   `process_date`                 STRING  COMMENT 'data ingest date'
+-- ) 
+-- stored as parquet 
+-- PARTITIONED BY (
+--   `kafka_source`, 
+--   `topic_name`, 
+--   `grass_date`, 
+--   `process_date`
+-- ) 
+-- LOCATION '${HDFS_PATH}/risk_kafka/dwd/dwd_risk_br_spp_gateway_req_rsp_final_result_di_v3' 
+-- TBLPROPERTIES (
+--   'parquet.stripe.size' = '2147483648', 
+--   'transient_lastDdlTime' = '1764076971', 
+--   'parquet.compression' = 'zstd', 
+--   'parquet.compress' = 'zstd'
+-- );
+
+
+-- msck repair table `risk`.`dwd_risk_br_spp_gateway_req_rsp_final_result_di_v3`;
+-- refresh table `risk`.`dwd_risk_br_spp_gateway_req_rsp_final_result_di_v3`;
+
+
+-- 1. 将外部表属性改为内部表
+-- ALTER TABLE `risk`.`dwd_risk_br_spp_gateway_req_rsp_final_result_di_v3` SET TBLPROPERTIES('EXTERNAL'='FALSE');
+
+-- 2. 删除表（此时会同步删除 HDFS 数据）
+-- DROP TABLE IF EXISTS `risk`.`dwd_risk_br_spp_gateway_req_rsp_final_result_di_v3`;

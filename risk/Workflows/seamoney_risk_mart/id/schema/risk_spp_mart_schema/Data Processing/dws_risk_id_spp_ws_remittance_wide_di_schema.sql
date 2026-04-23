@@ -1,0 +1,62 @@
+drop table if exists ${SCHEMA}.dws_risk_${region_lower}_spp_ws_remittance_wide_di;
+create external table if not exists ${SCHEMA}.dws_risk_${region_lower}_spp_ws_remittance_wide_di
+(
+spp_user_id string comment 'spp user id'
+,order_type_code bigint comment '业务视角的支付类型'
+,order_type_name string comment '业务视角的支付类型mappings'
+,transaction_id string comment '用户视角的支付请求，数字连续加1'
+,transaction_sn string comment '用户视角的支付请求，随机不连续'
+,reference_id string comment 'reference id - 产品设计上是方便用来查issue的 比如sender的reference id是receiver的订单号 然后receiver那边的reference是sender 或者我们跟第三方交互 reference id是第三方那边这笔交易的订单号 但现在的implementation比较乱'
+,order_status_code int comment '交易最终状态'
+,order_status_name string comment '交易最终状态mappings'
+,create_timestamp bigint comment '业务侧，交易创建的timestamp'
+,create_datetime_local string comment 'datetime in local time zone for create_timestamp'
+,create_datetime_regional string comment 'datetime in regional time zone(sg) for create_timestamp'
+,user_age int comment '用户账龄(交易时间 - 注册时间）'
+,event_amount_local decimal(30,10) comment '当笔交易金额-local currency'
+,event_amount_usd decimal(30,10) comment '当笔交易金额-us dollar'
+,receiver_apba_account_id string comment 'remittance 接受者apba_account_id'
+,receiver_bank_account_number_encrypted string comment 'remittance 接受者银行账号加密版'
+,receiver_bank_account_binding_timestamp bigint comment 'remittance 接受者银行账号添加时间戳'
+,receiver_bank_account_binding_datetime_local string comment 'remittance 接受者银行账号添加日期（按当地时区） '
+,receiver_bank_account_binding_datetime_regional string comment 'remittance 接受者银行账号添加日期（按sg时区） '
+,receiver_bank_account_age int comment 'remittance 接受者银行账号添加时长（交易日期-添加日期）'
+,shopeedf string comment 'shopeedf'
+,shopeedf_hashed string comment 'shopeedf'
+,shopeedf_first_login_datetime_local string comment '用户+shopeedf维度最早使用日期（local时区)'
+,shopeedf_first_login_datetime_regional string comment '用户+shopeedf维度最早使用日期（sg时区)'
+,shopeedf_age int comment '设备age(交易日期减去用户+shopeedf维度最早使用日期）'
+,szdf string comment 'szdf'
+,szdf_first_login_datetime_local string comment '用户+szdf维度最早使用日期（local时区)'
+,szdf_first_login_datetime_regional string comment '用户+szdf维度最早使用日期（sg时区)'
+,szdf_age int comment '设备age(交易日期-用户+szdf维度最早使用日期）'
+,payment_channel_id bigint comment '支付渠道id'
+,payment_channel_name string comment '支付渠道名称'
+,apm_transaction_id bigint comment 'apm模块transaction_id'
+,apm_payment_id string comment 'apm模块payment_id'
+,apm_channel_ref string comment 'apm模块channel_ref("ref id from channel side or ref id sent to channel sidereflect relationship which between spm and 3pp")'
+,apm_channel_ref2 string comment 'apm模块apm_channel_ref2("ref id from channel side or ref id sent to channel sidereflect relationship which between spm and 3pp")'
+,apm_channel_status string comment 'apm模块apm_channel_status(status of payment in channel side)'
+,encrypted_payment_id string comment 'apm模块 encrypted payment id'
+,apm_provision_entity_id bigint comment 'apm provision模块entity_id(业务含义provide by upstream(such as "refund_id", "order_id", "source_id")）'
+,apm_provision_channel_id bigint comment 'apm provision模块channel_id,业务含义provision_channel_tab的主key 帮助关联channel category'
+,apm_provision_channel_category bigint comment 'apm provision模块channel category,业务含义：https://docs.google.com/spreadsheets/d/1essy01lyvkpdqrygu3hnznubh48muf3cmjpmt3jmrly/edit#gid=0&range=b224:b293'
+,system_traffic string comment 'if this transaction initiated from new/old system'
+,flow_no string comment 'holmes 模块：flow_no'
+,scene_id string comment 'holmes 模块：scene_id'
+,scene_name string comment 'none'
+,platform_type string comment 'holmes 模块：请求发起平台类型'
+,app_type string comment 'holmes 模块：请求发起app类型'
+,platform_user_id string comment 'holmes 模块：请求发起user id'
+,shopeedf_holmes string comment 'holmes 模块：请求发起设备-shopeedf'
+,shenzhendf_holmes string comment 'holmes 模块：请求发起设备-shenzhendf'
+,ip_country string comment 'holmes 模块：请求发起ip国家名称'
+,ip_city string comment 'holmes 模块：请求发起ip国家名称'
+)
+partitioned by
+(
+    grass_date string 
+)
+stored as orc tblproperties ("orc.compress"="zstd","orc.stripe.size"="268435456")
+location '${HDFS_PATH}/risk_mart/dws/dws_risk_region_spp_ws_remittance_wide_di/grass_region=${region_upper}';
+msck repair table ${SCHEMA}.dws_risk_${region_lower}_spp_ws_remittance_wide_di;

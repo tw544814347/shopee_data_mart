@@ -1,0 +1,1 @@
+MSCK REPAIR TABLE ${SCHEMA}.ads_shopeefraud_user_list_df;

@@ -1,0 +1,88 @@
+drop table if exists ${SCHEMA}.dws_risk_${product}_${region}_loan_repayment_total_amount_zi;
+create external table if not exists ${SCHEMA}.dws_risk_${product}_${region}_loan_repayment_total_amount_zi
+(
+platform_user_id                 string              comment "Shopee platform user id credit系统用户ID"
+,credit_user_id                  string              comment "Unique id of credit user 平台用户id"
+,loan_id                         string              comment "loan_id"
+,loan_disbursed_month            string              comment "the first bill term of the loan.if the loan hasn't been confirmed, the value is null. 首期借据，如果借据还未确认，则该值为null"
+,first_instalment_due_time       string              comment "time of the first instalment due 分期付款首期逾期时间"
+,bill_due_day                    int                 comment "day(date(first_instalment_due_time))"
+,new_repeat_user                 string              comment "is_first_bill_loan=1 then new else repeat"
+,loan_tenure                     int                 comment "loan_tenure 总期数"
+,months_on_book                  bigint              comment "Months after bill due date 逾期日相差月份"
+,months_after_due                bigint              comment "number of months after bill due date, regardless of clear_status 当前与首期逾期日相差月数"
+,clear_status                    bigint              comment "1:uncleared 2:partial cleared 3:cleared"
+,dpd_eod                         bigint              comment "dpd_eod"
+,principal_repayable             decimal(30,10)      comment "Pincipal amount repayable 应还本金"
+,principal_os                    decimal(30,10)      comment "Pincipal amount outstanding 剩余本金"
+,total_amount_repayable          decimal(30,10)      comment "repayable amount outstanding 应还总额"          
+,total_amount_os                 decimal(30,10)      comment "repayable amount outstanding 剩余总额"
+,start_date                      string              comment "start_date 剩余os开始时间"
+,simple_disburse_month          string              comment "For Floating Due date Products"
+,disburse_time                   string              comment "loan disburse time"
+) 
+partitioned by(
+    end_date                        string              comment "end_date 剩余os结束时间"
+)
+comment 'Tag:risk summary table'
+stored as orc tblproperties ("orc.compress"="zstd")
+location '${HDFS_PATH}/risk_mart/dws/dws_aio_loan_repayment_total_amount_zi/garss_region=${upper_region}/product_id=${product_id}';
+;
+
+msck repair table ${SCHEMA}.dws_risk_${product}_${region}_loan_repayment_total_amount_zi;
+
+drop table if exists ${SCHEMA}.dws_risk_${product}_${region}_loan_repayment_total_amount_9999_df;
+create external table if not exists ${SCHEMA}.dws_risk_${product}_${region}_loan_repayment_total_amount_9999_df
+(
+platform_user_id                 string              comment "Shopee platform user id credit系统用户ID"
+,credit_user_id                  string              comment "Unique id of credit user 平台用户id"
+,loan_id                         string              comment "loan_id"
+,loan_disbursed_month            string              comment "the first bill term of the loan.if the loan hasn't been confirmed, the value is null. 首期借据，如果借据还未确认，则该值为null"
+,first_instalment_due_time       string              comment "time of the first instalment due 分期付款首期逾期时间"
+,bill_due_day                    int                 comment "day(date(first_instalment_due_time))"
+,new_repeat_user                 string              comment "is_first_bill_loan=1 then new else repeat"
+,loan_tenure                     int                 comment "loan_tenure 总期数"
+,months_on_book                  bigint              comment "Months after bill due date 逾期日相差月份"
+,months_after_due                bigint              comment "number of months after bill due date, regardless of clear_status 当前与首期逾期日相差月数"
+,clear_status                    bigint              comment "1:uncleared 2:partial cleared 3:cleared"
+,dpd_eod                         bigint              comment "dpd_eod"
+,principal_repayable             decimal(30,10)      comment "Pincipal amount repayable 应还本金"
+,principal_os                    decimal(30,10)      comment "Pincipal amount outstanding 剩余本金"
+,total_amount_repayable          decimal(30,10)      comment "repayable amount outstanding 应还总额"          
+,total_amount_os                 decimal(30,10)      comment "repayable amount outstanding 剩余总额"
+,start_date             string              comment "start_date 剩余os开始时间"
+,end_date               string              comment "start_date 剩余os结束时间"
+,simple_disburse_month          string              comment "For Floating Due date Products"
+,disburse_time                   string              comment "loan disburse time"
+) partitioned by (
+ grass_date               string              comment "9999-12-31数据的备份日期"
+)
+comment 'Tag:risk summary table'
+stored as orc tblproperties ("orc.compress"="zstd")
+location '${HDFS_PATH}/risk_mart/dws/dws_aio_loan_repayment_total_amount_9999_df/garss_region=${upper_region}/product_id=${product_id}';
+
+msck repair table ${SCHEMA}.dws_risk_${product}_${region}_loan_repayment_total_amount_9999_df;
+
+
+ --  初始化 
+--  insert overwrite  table  ${SCHEMA}.dws_risk_${product}_${region}_loan_repayment_zi_v2 partition(end_date)
+--  select 
+--  platform_user_id          
+-- ,credit_user_id           
+-- ,loan_id                  
+-- ,loan_disbursed_month     
+-- ,first_instalment_due_time
+-- ,bill_due_day             
+-- ,new_repeat_user          
+-- ,loan_tenure              
+-- ,months_on_book           
+-- ,months_after_due         
+-- ,clear_status             
+-- ,dpd_eod                  
+-- ,principal_repayable      
+-- ,principal_os             
+-- ,start_date               
+-- ,end_date 
+-- from ${SCHEMA}.dws_risk_${product}_${region}_loan_repayment_zi
+-- where start_date <'${grass_date}'
+-- ;

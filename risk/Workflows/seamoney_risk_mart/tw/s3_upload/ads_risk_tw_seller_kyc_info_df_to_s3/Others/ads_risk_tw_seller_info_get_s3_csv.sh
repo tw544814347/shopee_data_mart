@@ -1,0 +1,1 @@
+# sh /ldap_home/zongyi.lu/risk/python/ads_risk_tw_seller_info_get_s3_csv.sh

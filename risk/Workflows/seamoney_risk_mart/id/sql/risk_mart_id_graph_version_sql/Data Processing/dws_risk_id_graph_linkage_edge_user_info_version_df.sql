@@ -1,0 +1,8 @@
+--********************************************************************--
+-- Author:              chengguo.liu@shopee.com 
+-- Created Time:        2025-09-28
+-- Theme Domain：       risk graph
+-- Description:         user graph边数据 - 软连接, ip/gps/wifi;
+--                      前置任务已加工好，汇总发marker任务
+-- Data Granularity:    
+--********************************************************************--

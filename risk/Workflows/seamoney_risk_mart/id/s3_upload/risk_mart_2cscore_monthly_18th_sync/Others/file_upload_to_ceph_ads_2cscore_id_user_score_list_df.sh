@@ -1,0 +1,1 @@
+sh /data/risk_mart/export_data/file_upload_to_ceph_ads_2cscore_id_user_score_list_df.sh

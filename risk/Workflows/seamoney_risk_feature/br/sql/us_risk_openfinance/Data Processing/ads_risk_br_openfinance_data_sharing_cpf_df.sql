@@ -1,0 +1,79 @@
+-- add jar hdfs://D2/projects/credit/hdfs/udf/hive-udf.jar; 
+-- drop temporary function if exists format_time; 
+-- create temporary function format_time as 'com.shopee.seamoney.udf.FromTimeStamp';
+
+-- SET spark.sql.session.timeZone = America/Sao_Paulo;
+
+-- drop table if exists ${SCHEMA}.ads_risk_br_openfinance_data_sharing_cpf_df;
+-- create external table if not exists ${SCHEMA}.ads_risk_br_openfinance_data_sharing_cpf_df
+-- (    
+--     credit_user_id                  string 
+--     ,cpf                            string 
+--     ,user_name                      string 
+--     ,product_type                   string
+--     -- API 
+--     ,contracts                      string 
+--     ,discovery                      string 
+-- )partitioned by(
+--     grass_date                      string
+-- )
+-- stored as orc tblproperties ("orc.compress"="ZSTD","orc.stripe.size"="268435456")
+-- LOCATION 'hdfs://D2/projects/risk/hdfs/dev/ads/ads_risk_br_openfinance_data_sharing_cpf_df/grass_region=BR'
+-- ;
+
+-- msck repair table ${SCHEMA}.ads_risk_br_openfinance_data_sharing_cpf_df;
+-- refresh table ${SCHEMA}.ads_risk_br_openfinance_data_sharing_cpf_df;
+
+-- insert overwrite ${SCHEMA}.ads_risk_br_openfinance_data_sharing_cpf_df partition (grass_date = '${ds}')
+-- select  credit_user_id
+--         ,cpf
+--         ,user_name
+--         ,product_type 
+--         ,to_json(collect_list(from_json(contracts, 'STRUCT<contractId:ARRAY<STRUCT<key:STRING,value:STRING>>,productType:STRING,productSubType:STRING,ipocCode:STRING>'))) as contracts
+--         ,to_json(
+--             named_struct(
+--                 'resources', array(
+--                     named_struct(
+--                         'validUntil', "9999-12-31",
+--                         'authorizers', array(
+--                             named_struct(
+--                                 "cpf", cpf,
+--                                 "name", replace(user_name, '|', ' ')
+--                             )
+--                         ),
+--                         "resourceLegacyId", collect_list(named_struct("key", contract_id))    
+--                     )
+--                 )
+--             )
+--         ) as discovery
+-- from ${SCHEMA}.ads_risk_br_openfinance_data_sharing_df
+-- where grass_date = '${ds}'
+--   and product_type in ('SPL')
+-- group by 1,2,3,4
+-- union all 
+-- select  credit_user_id
+--         ,cpf
+--         ,user_name
+--         ,product_type 
+--         ,to_json(collect_list(from_json(contracts, 'STRUCT<contractId:ARRAY<STRUCT<key:STRING,value:STRING>>,productType:STRING,productSubType:STRING,productSubTypeCategory:STRING, ipocCode:STRING>' ))) as contracts
+--         ,to_json(
+--             named_struct(
+--                 'resources', array(
+--                     named_struct(
+--                         'validUntil', "9999-12-31",
+--                         'authorizers', array(
+--                             named_struct(
+--                                 "cpf", cpf,
+--                                 "name", replace(user_name, '|', ' ')
+--                             )
+--                         ),
+--                         "resourceLegacyId", collect_list(named_struct("key", contract_id))    
+--                     )
+--                 )
+--             )
+--         ) as discovery
+-- from ${SCHEMA}.ads_risk_br_openfinance_data_sharing_df
+-- where grass_date = '${ds}'
+--   and product_type in ('BCL', 'SCL')
+-- group by 1,2,3,4
+-- ;

@@ -1,0 +1,84 @@
+drop table if exists `risk`.`dwd_risk_${region}_spp_gateway_req_rsp_final_result_di_v2`;
+CREATE TABLE if not exists `risk`.`dwd_risk_${region}_spp_gateway_req_rsp_final_result_di_v2` (
+  `risk_scene_id`                STRING  COMMENT '<comment><description>Risk scene identifier from source table</description><calculationLogic>cast(t1.scene_id as string)</calculationLogic><enum>No enum</enum></comment>',
+  `id`                           BIGINT  COMMENT '<comment><description>Primary key identifier, fixed value 0</description><calculationLogic>0</calculationLogic><enum>No enum</enum></comment>',
+  `risk_version`                 BIGINT  COMMENT '<comment><description>Risk version from RiskReqHeader</description><calculationLogic>get_json_object(value, \'$.Req.RiskReqHeader.Version\')</calculationLogic><enum>No enum</enum></comment>',
+  `app_id`                       STRING  COMMENT '<comment><description>App identifier from RiskReqHeader</description><calculationLogic>get_json_object(value, \'$.Req.RiskReqHeader.AppID\')</calculationLogic><enum>No enum</enum></comment>',
+  `scene_id`                     BIGINT  COMMENT '<comment><description>Scene identifier from RiskReqHeader</description><calculationLogic>get_json_object(value, \'$.Req.RiskReqHeader.SceneID\')</calculationLogic><enum>No enum</enum></comment>',
+  `flow_no`                      STRING  COMMENT '<comment><description>Workflow flow number from RiskReqHeader</description><calculationLogic>get_json_object(value, \'$.Req.RiskReqHeader.FlowNo\')</calculationLogic><enum>No enum</enum></comment>',
+  `req_time`                     BIGINT  COMMENT '<comment><description>Request timestamp from RiskReqHeader</description><calculationLogic>get_json_object(value, \'$.Req.RiskReqHeader.ReqTime\')</calculationLogic><enum>No enum</enum></comment>',
+  `req_ip`                       STRING  COMMENT '<comment><description>Request IP address from RiskReqHeader</description><calculationLogic>get_json_object(value, \'$.Req.RiskReqHeader.ReqIp\')</calculationLogic><enum>No enum</enum></comment>',
+  `req_server`                   STRING  COMMENT '<comment><description>Request server from RiskReqHeader</description><calculationLogic>get_json_object(value, \'$.Req.RiskReqHeader.ReqServer\')</calculationLogic><enum>No enum</enum></comment>',
+  `req_memo`                     STRING  COMMENT '<comment><description>Request memo from RiskReqHeader</description><calculationLogic>get_json_object(value, \'$.Req.RiskReqHeader.ReqMemo\')</calculationLogic><enum>No enum</enum></comment>',
+  `reqno`                        STRING  COMMENT '<comment><description>Request number from RiskReqHeader</description><calculationLogic>get_json_object(value, \'$.Req.RiskReqHeader.ReqNo\')</calculationLogic><enum>No enum</enum></comment>',
+  `workflowsceneid`              BIGINT  COMMENT '<comment><description>Workflow scene identifier from RiskReqHeader</description><calculationLogic>get_json_object(value, \'$.Req.RiskReqHeader.WorkflowSceneID\')</calculationLogic><enum>No enum</enum></comment>',
+  `reqtype`                      BIGINT  COMMENT '<comment><description>Request type from RiskReqHeader</description><calculationLogic>get_json_object(value, \'$.Req.RiskReqHeader.ReqType\')</calculationLogic><enum>No enum</enum></comment>',
+  `reqasync`                     BIGINT  COMMENT '<comment><description>Request async flag from RiskReqHeader</description><calculationLogic>get_json_object(value, \'$.Req.RiskReqHeader.ReqAsync\')</calculationLogic><enum>No enum</enum></comment>',
+  `version`                      BIGINT  COMMENT '<comment><description>Version from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.version\')</calculationLogic><enum>No enum</enum></comment>',
+  `seq_id`                       STRING  COMMENT '<comment><description>Sequence identifier from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.seq_id\')</calculationLogic><enum>No enum</enum></comment>',
+  `module`                       STRING  COMMENT '<comment><description>Module name from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.module\')</calculationLogic><enum>No enum</enum></comment>',
+  `cmd`                          STRING  COMMENT '<comment><description>Command from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.cmd\')</calculationLogic><enum>No enum</enum></comment>',
+  `client_ip`                    STRING  COMMENT '<comment><description>Client IP address from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.client_ip\')</calculationLogic><enum>No enum</enum></comment>',
+  `device_type`                  BIGINT  COMMENT '<comment><description>Device type from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.device_type\')</calculationLogic><enum>No enum</enum></comment>',
+  `platform_type`                BIGINT  COMMENT '<comment><description>Platform type identifier from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.platform_type\')</calculationLogic><enum>1-Shopee, 5-ShopeePay</enum></comment>',
+  `platform_token`               STRING  COMMENT '<comment><description>Platform token from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.platform_token\')</calculationLogic><enum>No enum</enum></comment>',
+  `platform_user_id`             STRING  COMMENT '<comment><description>Platform user identifier from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.platform_user_id\')</calculationLogic><enum>No enum</enum></comment>',
+  `credit_user_id`               BIGINT  COMMENT '<comment><description>Credit user identifier from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.credit_user_id\')</calculationLogic><enum>No enum</enum></comment>',
+  `region`                       STRING  COMMENT '<comment><description>Region code, fixed value for this table</description><calculationLogic>\'ID\'</calculationLogic><enum>ID</enum></comment>',
+  `device_brand`                 STRING  COMMENT '<comment><description>Device brand from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.device_brand\')</calculationLogic><enum>No enum</enum></comment>',
+  `device_id`                    STRING  COMMENT '<comment><description>Device identifier from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.device_id\')</calculationLogic><enum>No enum</enum></comment>',
+  `system_type`                  STRING  COMMENT '<comment><description>System type from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.system_type\')</calculationLogic><enum>No enum</enum></comment>',
+  `system_version`               STRING  COMMENT '<comment><description>System version from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.system_version\')</calculationLogic><enum>No enum</enum></comment>',
+  `app_version`                  STRING  COMMENT '<comment><description>App version from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.app_version\')</calculationLogic><enum>No enum</enum></comment>',
+  `imei`                         STRING  COMMENT '<comment><description>IMEI from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.imei\')</calculationLogic><enum>No enum</enum></comment>',
+  `device_fingerprint`           STRING  COMMENT '<comment><description>Device fingerprint from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.device_fingerprint\')</calculationLogic><enum>No enum</enum></comment>',
+  `lang`                         STRING  COMMENT '<comment><description>Language code from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.lang\')</calculationLogic><enum>No enum</enum></comment>',
+  `from_source`                  STRING  COMMENT '<comment><description>Request source from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.from\')</calculationLogic><enum>No enum</enum></comment>',
+  `extension`                    STRING  COMMENT '<comment><description>Full ReqParams JSON as extension</description><calculationLogic>get_json_object(value, \'$.ReqParams\')</calculationLogic><enum>No enum</enum></comment>',
+  `handle_begin_time`            BIGINT  COMMENT '<comment><description>Handle begin timestamp from RiskInsight</description><calculationLogic>get_json_object(value, \'$.Rsp.RiskInsight.HandleBeginTime\')</calculationLogic><enum>No enum</enum></comment>',
+  `handle_end_time`              BIGINT  COMMENT '<comment><description>Handle end timestamp from RiskInsight</description><calculationLogic>get_json_object(value, \'$.Rsp.RiskInsight.HandleEndTime\')</calculationLogic><enum>No enum</enum></comment>',
+  `strategy_id`                  BIGINT  COMMENT '<comment><description>Strategy identifier from RiskInsight</description><calculationLogic>get_json_object(value, \'$.Rsp.RiskInsight.StrategyId\')</calculationLogic><enum>No enum</enum></comment>',
+  `strategy_version`             BIGINT  COMMENT '<comment><description>Strategy version, fixed value 0</description><calculationLogic>0</calculationLogic><enum>No enum</enum></comment>',
+  `final_result`                 BIGINT  COMMENT '<comment><description>Final check result from RiskInsight</description><calculationLogic>get_json_object(value, \'$.Rsp.RiskInsight.CheckResult\')</calculationLogic><enum>No enum</enum></comment>',
+  `reasons`                      STRING  COMMENT '<comment><description>Reasons from RiskInsight</description><calculationLogic>get_json_object(value, \'$.Rsp.RiskInsight.Reasons\')</calculationLogic><enum>No enum</enum></comment>',
+  `mark`                         STRING  COMMENT '<comment><description>Mark from RiskInsight</description><calculationLogic>get_json_object(value, \'$.Rsp.RiskInsight.Mark\')</calculationLogic><enum>No enum</enum></comment>',
+  `create_time`                  BIGINT  COMMENT '<comment><description>Creation timestamp, same as req_time</description><calculationLogic>get_json_object(value, \'$.Req.RiskReqHeader.ReqTime\')</calculationLogic><enum>No enum</enum></comment>',
+  `event_result`                 BIGINT  COMMENT '<comment><description>Event result, fixed value -1</description><calculationLogic>-1</calculationLogic><enum>No enum</enum></comment>',
+  `gps_status`                   BIGINT  COMMENT '<comment><description>GPS status from location in CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.location.status\')</calculationLogic><enum>No enum</enum></comment>',
+  `gps_longitude`                STRING  COMMENT '<comment><description>GPS longitude from location in CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.location.longitude\')</calculationLogic><enum>No enum</enum></comment>',
+  `gps_latitude`                 STRING  COMMENT '<comment><description>GPS latitude from location in CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.location.latitude\')</calculationLogic><enum>No enum</enum></comment>',
+  `device_model`                 STRING  COMMENT '<comment><description>Device model from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.device_model\')</calculationLogic><enum>No enum</enum></comment>',
+  `network_type`                 BIGINT  COMMENT '<comment><description>Network type from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.network_type\')</calculationLogic><enum>No enum</enum></comment>',
+  `cellular_type`                STRING  COMMENT '<comment><description>Cellular type from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.cellular_type\')</calculationLogic><enum>No enum</enum></comment>',
+  `workflow_flow_no`             STRING  COMMENT '<comment><description>Workflow flow number from RiskReqHeader</description><calculationLogic>get_json_object(value, \'$.Req.RiskReqHeader.WorkflowFlowNo\')</calculationLogic><enum>No enum</enum></comment>',
+  `event_code`                   BIGINT  COMMENT '<comment><description>Event code from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.event_code\')</calculationLogic><enum>No enum</enum></comment>',
+  `shopeepay_user_id`            STRING  COMMENT '<comment><description>ShopeePay user identifier from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.shopeepay_user_id\')</calculationLogic><enum>No enum</enum></comment>',
+  `app_type`                     BIGINT  COMMENT '<comment><description>App type from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.app_type\')</calculationLogic><enum>No enum</enum></comment>',
+  `szdf_token`                   STRING  COMMENT '<comment><description>SZDF token from CommonHeader</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.szdf_token\')</calculationLogic><enum>No enum</enum></comment>',
+  `check_result`                 BIGINT  COMMENT '<comment><description>Check result from RspExtension</description><calculationLogic>get_json_object(value, \'$.RspExtension.CheckResult\')</calculationLogic><enum>No enum</enum></comment>',
+  `check_result_code`            STRING  COMMENT '<comment><description>Check result code from RspExtension</description><calculationLogic>get_json_object(value, \'$.RspExtension.check_result_code\')</calculationLogic><enum>No enum</enum></comment>',
+  `additional_code`              STRING  COMMENT '<comment><description>Additional code from RspExtension</description><calculationLogic>get_json_object(value, \'$.RspExtension.additional_code\')</calculationLogic><enum>No enum</enum></comment>',
+  `freeze_time`                  BIGINT  COMMENT '<comment><description>Freeze time from RspExtension</description><calculationLogic>get_json_object(value, \'$.RspExtension.freeze_time\')</calculationLogic><enum>No enum</enum></comment>',
+  `encrypted_recipient_account`  STRING  COMMENT '<comment><description>Encrypted recipient account from ReqParams</description><calculationLogic>get_json_object(value, \'$.ReqParams.encrypted_recipient_account\')</calculationLogic><enum>No enum</enum></comment>',
+  `encrypted_bank_account_no`    STRING  COMMENT '<comment><description>Encrypted bank account number from ReqParams</description><calculationLogic>get_json_object(value, \'$.ReqParams.encrypted_bank_account_no\')</calculationLogic><enum>No enum</enum></comment>',
+  `req_from`                     STRING  COMMENT '<comment><description>Request source from CommonHeader, same as from_source</description><calculationLogic>get_json_object(value, \'$.ReqParams.CommonHeader.from\')</calculationLogic><enum>No enum</enum></comment>'
+)
+stored as parquet
+PARTITIONED BY (
+  `kafka_source` STRING COMMENT '<comment><description>Kafka data source identifier</description><calculationLogic>\'di\'</calculationLogic><enum>di</enum></comment>',
+  `topic_name` STRING COMMENT '<comment><description>Kafka topic name from source table</description><calculationLogic>tn</calculationLogic><enum>No enum</enum></comment>',
+  `grass_date` STRING COMMENT '<comment><description>Biz Local Date based on ReqTime with timezone adjustment</description><calculationLogic>to_date(from_unixtime(ReqTime - timezone_offset))</calculationLogic><enum>No enum</enum></comment>',
+  `process_date` STRING COMMENT '<comment><description>Data processing date from source dt partition</description><calculationLogic>dt</calculationLogic><enum>No enum</enum></comment>'
+)
+LOCATION '${HDFS_PATH}/risk_kafka/dwd/dwd_risk_aio_spp_gateway_req_rsp_final_result_di_v2_/grass_region=${upper_region}'
+TBLPROPERTIES (
+  'parquet.stripe.size' = '2147483648',
+  'transient_lastDdlTime' = '1764075081',
+  'parquet.compression' = 'zstd',
+  'parquet.compress' = 'zstd'
+)
+COMMENT 'Data warehouse detail table for SPP gateway final result, extracted from Kafka gateway request/response data.'
+;
+
+msck repair table `risk`.`dwd_risk_${region}_spp_gateway_req_rsp_final_result_di_v2`;
+refresh table `risk`.`dwd_risk_${region}_spp_gateway_req_rsp_final_result_di_v2`;

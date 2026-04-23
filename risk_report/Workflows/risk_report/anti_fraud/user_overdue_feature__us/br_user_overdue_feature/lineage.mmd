@@ -1,0 +1,59 @@
+---
+title: "risk_report/anti_fraud/user_overdue_feature__us/br_user_overdue_feature 表血缘关系图"
+---
+graph LR
+    subgraph 外部来源表
+        __schema__dws_risk___reg____biz_type_string__user_overdue_info_df["schema.dws_risk_reg_biz_type_string_user_overdue_info_df"]
+        __schema__dws_risk___reg____biz_type_string__user_overdue_tag_df["schema.dws_risk_reg_biz_type_string_user_overdue_tag_df"]
+        credit_mart_dwd___biz_type_string__aio___reg__account_df["credit_mart.dwd_biz_type_string_aio_reg_account_df"]
+        credit_mart_dws___biz_type_string__aio___reg__account_df["credit_mart.dws_biz_type_string_aio_reg_account_df"]
+        credit_mart_dws___biz_type_string__aio___reg__instalment_repayment_df["credit_mart.dws_biz_type_string_aio_reg_instalment_repayment_df"]
+        credit_mart_dws___biz_type_string__aio___reg__loan_repayment_df["credit_mart.dws_biz_type_string_aio_reg_loan_repayment_df"]
+        mp_order_dim_exchange_rate__reg_s0_live["mp_order.dim_exchange_rate__reg_s0_live"]
+        risk_dwd_risk___reg__strategy_final_result_merge_di["risk.dwd_risk_reg_strategy_final_result_merge_di"]
+        risk_dwd_risk_szdf_login_di["risk.dwd_risk_szdf_login_di"]
+        risk_feature_ads_risk___biz_type_string____reg__user_behavior_df["risk_feature.ads_risk_biz_type_string_reg_user_behavior_df"]
+        risk_feature_ads_risk___reg__user_union_info_df["risk_feature.ads_risk_reg_user_union_info_df"]
+    end
+    subgraph 中间表
+        __schema__dws_risk___reg____risk_tab_biz_type__af_device_user_agg_df["schema.dws_risk_reg_risk_tab_biz_type_af_device_user_agg_df"]
+        __schema__dws_risk___reg____risk_tab_biz_type__fpd_user_overdue_info_df["schema.dws_risk_reg_risk_tab_biz_type_fpd_user_overdue_info_df"]
+        __schema__dws_risk___reg____risk_tab_biz_type__login_szdf_device_user_agg_df["schema.dws_risk_reg_risk_tab_biz_type_login_szdf_device_user_agg_df"]
+        __schema__dws_risk___reg____risk_tab_biz_type__szdf_device_user_agg_df["schema.dws_risk_reg_risk_tab_biz_type_szdf_device_user_agg_df"]
+        __schema__dws_risk___reg____risk_tab_biz_type__user_overdue_info_df["schema.dws_risk_reg_risk_tab_biz_type_user_overdue_info_df"]
+        __schema__dws_risk___reg____risk_tab_biz_type__user_overdue_tag_df["schema.dws_risk_reg_risk_tab_biz_type_user_overdue_tag_df"]
+        __schema__dws_risk_mid___reg____risk_tab_biz_type__af_device_user_info_df["schema.dws_risk_mid_reg_risk_tab_biz_type_af_device_user_info_df"]
+        __schema__dws_risk_mid___reg____risk_tab_biz_type__szdf_device_user_info_df["schema.dws_risk_mid_reg_risk_tab_biz_type_szdf_device_user_info_df"]
+    end
+    subgraph 目标输出表
+        __schema__ads_risk___reg____risk_tab_biz_type__device_user_agg_tmp_df[["schema.ads_risk_reg_risk_tab_biz_type_device_user_agg_tmp_df"]]
+        __schema__ads_risk___reg____risk_tab_biz_type__user_overdue_info_tmp_df[["schema.ads_risk_reg_risk_tab_biz_type_user_overdue_info_tmp_df"]]
+        __schema__ads_risk___reg__all_prod_device_user_agg_middle_df[["schema.ads_risk_reg_all_prod_device_user_agg_middle_df"]]
+        __schema__ads_risk___reg__all_prod_user_overdue_info_middle_df[["schema.ads_risk_reg_all_prod_user_overdue_info_middle_df"]]
+    end
+    __schema__dws_risk___reg____risk_tab_biz_type__szdf_device_user_agg_df --> __schema__ads_risk___reg____risk_tab_biz_type__device_user_agg_tmp_df
+    __schema__dws_risk___reg____risk_tab_biz_type__af_device_user_agg_df --> __schema__ads_risk___reg____risk_tab_biz_type__device_user_agg_tmp_df
+    __schema__dws_risk___reg____risk_tab_biz_type__login_szdf_device_user_agg_df --> __schema__ads_risk___reg____risk_tab_biz_type__device_user_agg_tmp_df
+    risk_dwd_risk___reg__strategy_final_result_merge_di --> __schema__ads_risk___reg____risk_tab_biz_type__device_user_agg_tmp_df
+    risk_feature_ads_risk___biz_type_string____reg__user_behavior_df --> __schema__ads_risk___reg____risk_tab_biz_type__user_overdue_info_tmp_df
+    __schema__dws_risk___reg____risk_tab_biz_type__fpd_user_overdue_info_df --> __schema__ads_risk___reg____risk_tab_biz_type__user_overdue_info_tmp_df
+    credit_mart_dws___biz_type_string__aio___reg__account_df --> __schema__ads_risk___reg____risk_tab_biz_type__user_overdue_info_tmp_df
+    credit_mart_dws___biz_type_string__aio___reg__instalment_repayment_df --> __schema__ads_risk___reg____risk_tab_biz_type__user_overdue_info_tmp_df
+    __schema__dws_risk___reg____risk_tab_biz_type__user_overdue_info_df --> __schema__ads_risk___reg____risk_tab_biz_type__user_overdue_info_tmp_df
+    mp_order_dim_exchange_rate__reg_s0_live --> __schema__ads_risk___reg____risk_tab_biz_type__user_overdue_info_tmp_df
+    __schema__dws_risk_mid___reg____risk_tab_biz_type__af_device_user_info_df --> __schema__dws_risk___reg____risk_tab_biz_type__af_device_user_agg_df
+    credit_mart_dws___biz_type_string__aio___reg__instalment_repayment_df --> __schema__dws_risk___reg____risk_tab_biz_type__fpd_user_overdue_info_df
+    credit_mart_dwd___biz_type_string__aio___reg__account_df --> __schema__dws_risk___reg____risk_tab_biz_type__fpd_user_overdue_info_df
+    risk_dwd_risk_szdf_login_di --> __schema__dws_risk___reg____risk_tab_biz_type__login_szdf_device_user_agg_df
+    __schema__dws_risk_mid___reg____risk_tab_biz_type__szdf_device_user_info_df --> __schema__dws_risk___reg____risk_tab_biz_type__szdf_device_user_agg_df
+    credit_mart_dws___biz_type_string__aio___reg__account_df --> __schema__dws_risk___reg____risk_tab_biz_type__user_overdue_info_df
+    risk_feature_ads_risk___reg__user_union_info_df --> __schema__dws_risk___reg____risk_tab_biz_type__user_overdue_info_df
+    credit_mart_dws___biz_type_string__aio___reg__loan_repayment_df --> __schema__dws_risk___reg____risk_tab_biz_type__user_overdue_tag_df
+    credit_mart_dws___biz_type_string__aio___reg__account_df --> __schema__dws_risk___reg____risk_tab_biz_type__user_overdue_tag_df
+    risk_feature_ads_risk___biz_type_string____reg__user_behavior_df --> __schema__dws_risk___reg____risk_tab_biz_type__user_overdue_tag_df
+    __schema__dws_risk___reg____risk_tab_biz_type__user_overdue_tag_df --> __schema__dws_risk_mid___reg____risk_tab_biz_type__af_device_user_info_df
+    __schema__dws_risk___reg____risk_tab_biz_type__user_overdue_info_df --> __schema__dws_risk_mid___reg____risk_tab_biz_type__af_device_user_info_df
+    risk_dwd_risk___reg__strategy_final_result_merge_di --> __schema__dws_risk_mid___reg____risk_tab_biz_type__af_device_user_info_df
+    risk_dwd_risk_szdf_login_di --> __schema__dws_risk_mid___reg____risk_tab_biz_type__szdf_device_user_info_df
+    __schema__dws_risk___reg____biz_type_string__user_overdue_tag_df --> __schema__dws_risk_mid___reg____risk_tab_biz_type__szdf_device_user_info_df
+    __schema__dws_risk___reg____biz_type_string__user_overdue_info_df --> __schema__dws_risk_mid___reg____risk_tab_biz_type__szdf_device_user_info_df

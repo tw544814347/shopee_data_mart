@@ -1,0 +1,12 @@
+-- =============================================================================
+-- Author:              chengguo.liu@shopee.com
+-- Created Time:        2025-11-21
+-- Theme Domain:        User Behavior Login
+-- Data Granularity:    
+-- Description:         Daily user device login accumulated table
+-- Documents:           
+-- =============================================================================
+--  Version History:
+--  2025-11-21 - chengguo.liu - 初始化
+--  2026-01-05 - chengguo.liu - 拆分到分地区跑批，脚本空跑发marker
+-- =============================================================================

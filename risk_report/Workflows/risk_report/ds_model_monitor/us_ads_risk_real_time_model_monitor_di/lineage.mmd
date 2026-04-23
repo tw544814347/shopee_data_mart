@@ -1,0 +1,12 @@
+---
+title: "risk_report/ds_model_monitor/us_ads_risk_real_time_model_monitor_di 表血缘关系图"
+---
+graph LR
+    subgraph 外部来源表
+        szfin_feature_management_dwd_aimos_service_node_log_di_mx["szfin_feature_management.dwd_aimos_service_node_log_di_mx"]
+    end
+    subgraph 目标输出表
+        __schema__ads_risk_mx_circulo_monitor_di[["schema.ads_risk_mx_circulo_monitor_di"]]
+        __schema__ads_risk_mx_real_time_model_monitor_di[["schema.ads_risk_mx_real_time_model_monitor_di"]]
+    end
+    szfin_feature_management_dwd_aimos_service_node_log_di_mx --> __schema__ads_risk_mx_circulo_monitor_di

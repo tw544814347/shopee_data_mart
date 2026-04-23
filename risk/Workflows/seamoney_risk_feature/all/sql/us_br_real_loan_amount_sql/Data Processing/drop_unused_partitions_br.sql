@@ -1,0 +1,1 @@
+ALTER TABLE risk.check_real_loan_amount_history DROP IF EXISTS PARTITION(dt <= '${limit_date}');

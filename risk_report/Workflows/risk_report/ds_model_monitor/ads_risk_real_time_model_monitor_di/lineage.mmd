@@ -1,0 +1,22 @@
+---
+title: "risk_report/ds_model_monitor/ads_risk_real_time_model_monitor_di 表血缘关系图"
+---
+graph LR
+    subgraph 外部来源表
+        regsm_riskmgmt_aimos_fs_monitoring["regsm_riskmgmt.aimos_fs_monitoring"]
+        szfin_feature_management_dwd_aimos_service_node_log_di_mx["szfin_feature_management.dwd_aimos_service_node_log_di_mx"]
+    end
+    subgraph 目标输出表
+        __schema__ads_risk_aio_real_time_model_monitor_di[["schema.ads_risk_aio_real_time_model_monitor_di"]]
+        __schema__ads_risk_br_spl_acard_monitor_di[["schema.ads_risk_br_spl_acard_monitor_di"]]
+        __schema__ads_risk_mx_circulo_monitor_di[["schema.ads_risk_mx_circulo_monitor_di"]]
+        __schema__ads_risk_mx_real_time_model_monitor_di[["schema.ads_risk_mx_real_time_model_monitor_di"]]
+        __schema__ads_risk_ph_real_time_model_monitor_di[["schema.ads_risk_ph_real_time_model_monitor_di"]]
+        __schema__ads_risk_ph_spl_acard_monitor_di[["schema.ads_risk_ph_spl_acard_monitor_di"]]
+        __schema__ads_risk_th_real_time_model_monitor_di[["schema.ads_risk_th_real_time_model_monitor_di"]]
+        __schema__ads_risk_th_splx_acard_monitor_di[["schema.ads_risk_th_splx_acard_monitor_di"]]
+    end
+    regsm_riskmgmt_aimos_fs_monitoring --> __schema__ads_risk_br_spl_acard_monitor_di
+    szfin_feature_management_dwd_aimos_service_node_log_di_mx --> __schema__ads_risk_mx_circulo_monitor_di
+    regsm_riskmgmt_aimos_fs_monitoring --> __schema__ads_risk_ph_spl_acard_monitor_di
+    regsm_riskmgmt_aimos_fs_monitoring --> __schema__ads_risk_th_splx_acard_monitor_di

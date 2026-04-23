@@ -1,0 +1,37 @@
+drop  table if exists risk.dwd_risk_br_uw_quod_score_base_info_qscore_df;
+create external table if not exists risk.dwd_risk_br_uw_quod_score_base_info_qscore_df
+(
+ source_pk                          string            comment 'md5 concaT(trade_id, flow_no,flow_type)'
+,cpf                                string            comment 'cpf'
+,platform_user_id                   string            comment 'platform_user_id'
+,cpf_status                         string            comment 'cpf_status'
+,name                               string            comment 'name'
+,mother_name                        string            comment 'mother_name'
+,dob                                string            comment 'dob'
+,age                                int               comment 'age'
+,gender                             string            comment 'gender'
+,is_deceased                        int               comment 'is_deceased'
+,dod                                string            comment 'dod'
+,address_street                     string            comment 'address_street'
+,address_number                     string            comment 'address_number'
+,address_complement                 string            comment 'address_complement'
+,address_neighborhood               string            comment 'address_neighborhood'
+,address_city                       string            comment 'address_city'
+,address_state                      string            comment 'address_state'
+,address_postal_code                string            comment 'address_postal_code'
+,address_update_date                string            comment 'address_update_date'
+,email                              string            comment 'email'
+,email_update_date                  string            comment 'email_update_date'
+,phone                              string            comment 'phone'
+,phone_update_date                  string            comment 'phone_update_date'
+,mobile_phone                       string            comment 'mobile_phone'
+,mobile_phone_update_date           string            comment 'mobile_phone_update_date'
+,quod_score                         decimal(32,4)     comment 'quod_score'
+,quod_score_segment                 int               comment 'quod_score_segment'
+,quod_pmt_commitment_score          decimal(32,4)     comment 'quod_pmt_commitment_score'
+,quod_profile_score                 decimal(32,4)     comment 'quod_profile_score'
+,create_time                        string          comment 'create_time'
+)
+partitioned by (grass_date string comment "partition date yyyy-MM-dd")
+stored as orc tblproperties ("orc.compress"="SNAPPY","orc.stripe.size"="2147483648")
+LOCATION 'hdfs://R2/projects/risk/hdfs/prod/dwd/dwd_risk_br_uw_quod_score_base_info_qscore_df'

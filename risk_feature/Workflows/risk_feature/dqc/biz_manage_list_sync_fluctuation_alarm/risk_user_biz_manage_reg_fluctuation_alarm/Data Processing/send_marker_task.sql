@@ -1,0 +1,5 @@
+-- select * from risk_feature.dwd_risk_sg_user_biz_manage_sg_offus_store_tier_de_df
+-- union all
+-- select * from risk_feature.dwd_risk_th_user_biz_manage_th_spl_cash_out_new_user_whitelist_df
+-- union all
+-- select * from risk_feature.dwd_risk_vn_user_biz_manage_merchant_whitelist_vietqr_p2p_df;

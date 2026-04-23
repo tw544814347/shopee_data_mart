@@ -1,0 +1,31 @@
+DROP TABLE IF EXISTS ${SCHEMA}.dws_risk_user_frequency_gps_df;
+CREATE EXTERNAL TABLE IF NOT EXISTS ${SCHEMA}.dws_risk_user_frequency_gps_df
+(
+    user_id bigint
+    ,user_gps_cnt bigint
+    ,user_days_with_gps bigint
+    ,user_months_with_gps bigint
+    ,hex1 string
+    ,days_with_gps_1 bigint
+    ,months_with_gps_1 bigint
+    ,gps_record_cnt_1 bigint
+    ,hex2 string
+    ,days_with_gps_2 bigint
+    ,months_with_gps_2 bigint
+    ,gps_record_cnt_2 bigint
+    ,hex3 string
+    ,days_with_gps_3 bigint
+    ,months_with_gps_3 bigint
+    ,gps_record_cnt_3 bigint
+    ,has_gps_record tinyint
+    ,hex_list string
+)
+partitioned by
+(
+     tz_type        string          comment         'timezone type'
+    ,grass_region   string          comment         'partition key'
+    ,grass_date     string          comment         'partition key, yyyy-MM-dd'
+)
+stored as orc tblproperties ("orc.compress"="SNAPPY","orc.stripe.size"="2147483648")
+location '${HDFS_PATH}/risk_mart/dws/dws_risk_user_frequency_gps_df';
+msck repair table ${SCHEMA}.dws_risk_user_frequency_gps_df;

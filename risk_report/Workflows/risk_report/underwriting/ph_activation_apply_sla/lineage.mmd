@@ -1,0 +1,42 @@
+---
+title: "risk_report/underwriting/ph_activation_apply_sla 表血缘关系图"
+---
+graph LR
+    subgraph 外部来源表
+        credit_app_ads_credit_reg_uc_activation_order_risk_workflow_di["credit_app.ads_credit_reg_uc_activation_order_risk_workflow_di"]
+        credit_uc_dwd_all_prod___region__uc_apply_df["credit_uc.dwd_all_prod_region_uc_apply_df"]
+        credit_uc_dwd_all_prod___region__uc_apply_user_action_step_df["credit_uc.dwd_all_prod_region_uc_apply_user_action_step_df"]
+        risk_dim_risk_reg_workflow_with_app_type_df["risk.dim_risk_reg_workflow_with_app_type_df"]
+        risk_dwd_credit___screen_region__risk_screen_df["risk.dwd_credit_screen_region_risk_screen_df"]
+        risk_dwd_risk___invoke_policy_region__underwriting_invoke_policy_result_history_df["risk.dwd_risk_invoke_policy_region_underwriting_invoke_policy_result_history_df"]
+        risk_dwd_risk___region__uw_spl_process_di["risk.dwd_risk_region_uw_spl_process_di"]
+        risk_dwd_risk___shopeepay_af_region__spp_gateway_req_rsp_final_result_di["risk.dwd_risk_shopeepay_af_region_spp_gateway_req_rsp_final_result_di"]
+        risk_dwd_risk___shopeepay_workflow_region__af_shopeepay_workflow_di["risk.dwd_risk_shopeepay_workflow_region_af_shopeepay_workflow_di"]
+        risk_dws_credit_reg_risk_ticket_df["risk.dws_credit_reg_risk_ticket_df"]
+        risk_dws_spp_reg_risk_ticket_df["risk.dws_spp_reg_risk_ticket_df"]
+    end
+    subgraph 中间表
+        risk_report_dws_risk___region__activation_af_strategy_df["risk_report.dws_risk_region_activation_af_strategy_df"]
+        risk_report_dws_risk___region__activation_af_workflow_df["risk_report.dws_risk_region_activation_af_workflow_df"]
+        risk_report_dws_risk___region__activation_apply_process_df["risk_report.dws_risk_region_activation_apply_process_df"]
+        risk_report_dws_risk___region__activation_ticket_df["risk_report.dws_risk_region_activation_ticket_df"]
+    end
+    subgraph 目标输出表
+        risk_report_ads_risk___region__activation_apply_sla_df[["risk_report.ads_risk_region_activation_apply_sla_df"]]
+    end
+    risk_report_dws_risk___region__activation_apply_process_df --> risk_report_ads_risk___region__activation_apply_sla_df
+    risk_report_dws_risk___region__activation_af_strategy_df --> risk_report_ads_risk___region__activation_apply_sla_df
+    risk_report_dws_risk___region__activation_ticket_df --> risk_report_ads_risk___region__activation_apply_sla_df
+    risk_report_dws_risk___region__activation_af_workflow_df --> risk_report_ads_risk___region__activation_apply_sla_df
+    risk_dwd_credit___screen_region__risk_screen_df --> risk_report_ads_risk___region__activation_apply_sla_df
+    risk_dwd_risk___shopeepay_af_region__spp_gateway_req_rsp_final_result_di --> risk_report_dws_risk___region__activation_af_strategy_df
+    risk_dwd_risk___shopeepay_workflow_region__af_shopeepay_workflow_di --> risk_report_dws_risk___region__activation_af_workflow_df
+    risk_dim_risk_reg_workflow_with_app_type_df --> risk_report_dws_risk___region__activation_af_workflow_df
+    risk_dwd_risk___invoke_policy_region__underwriting_invoke_policy_result_history_df --> risk_report_dws_risk___region__activation_af_workflow_df
+    risk_report_dws_risk___region__activation_ticket_df --> risk_report_dws_risk___region__activation_af_workflow_df
+    credit_app_ads_credit_reg_uc_activation_order_risk_workflow_di --> risk_report_dws_risk___region__activation_af_workflow_df
+    risk_dwd_risk___region__uw_spl_process_di --> risk_report_dws_risk___region__activation_af_workflow_df
+    credit_uc_dwd_all_prod___region__uc_apply_user_action_step_df --> risk_report_dws_risk___region__activation_apply_process_df
+    credit_uc_dwd_all_prod___region__uc_apply_df --> risk_report_dws_risk___region__activation_apply_process_df
+    risk_dws_spp_reg_risk_ticket_df --> risk_report_dws_risk___region__activation_ticket_df
+    risk_dws_credit_reg_risk_ticket_df --> risk_report_dws_risk___region__activation_ticket_df

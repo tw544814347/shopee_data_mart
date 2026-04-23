@@ -1,0 +1,49 @@
+create or replace temporary function get_ip_to_city as 'com.shopee.de.udf.IP.v1.IP2LocLookupWithProxy' using jar 'hdfs://${IDC_NAMESPACE}/projects/risk/hdfs/udf/shopee-de-udf-0.0.19.jar';
+create or replace temporary function parse_city_name as 'com.shopee.udf.ParseCityNameUDF' using jar 'hdfs://${IDC_NAMESPACE}/projects/risk/hdfs/udf/seamoney-risk-tool-udf-1.0-SNAPSHOT-jar-with-dependencies.jar';
+
+insert overwrite table ${SCHEMA}.dws_risk_buyer_city_complete_df partition (tz_type='local', grass_region, grass_date)
+select
+    buyer_id
+    ,checkout_city_name as city_name
+    ,checkout_city_name
+    ,complete_physical_product_ord_cnt_6m
+    ,checkout_shipping_same_city_of_complete_physical_product_ord_cnt_6m
+    ,complete_physical_product_ord_cnt_without_proxy_6m
+    ,checkout_shipping_same_city_of_complete_physical_product_ord_cnt_without_proxy_6m
+    ,grass_region
+    ,date('${bizdate}') as grass_date
+from (
+    select
+        buyer_id
+        ,grass_region
+        ,get_ip_to_city(checkout_ip)[4] as checkout_city_name
+        ,count(case
+            when is_physical_product_order = 'Y' then order_id
+            end) as complete_physical_product_ord_cnt_6m
+        ,count(
+            case when is_physical_product_order = 'Y'
+                and parse_city_name(get_ip_to_city(checkout_ip)[4], grass_region) = shipping_city_name
+            then order_id
+            end) as checkout_shipping_same_city_of_complete_physical_product_ord_cnt_6m
+        ,count(case
+            when is_physical_product_order = 'Y' and get_ip_to_city(checkout_ip)[8] = 0 then order_id
+            end) as complete_physical_product_ord_cnt_without_proxy_6m
+        ,count(
+            case when is_physical_product_order = 'Y'
+                and parse_city_name(get_ip_to_city(checkout_ip)[4], grass_region) = shipping_city_name
+                and get_ip_to_city(checkout_ip)[8] = 0
+            then order_id
+            end) as checkout_shipping_same_city_of_complete_physical_product_ord_cnt_without_proxy_6m
+    from ${SCHEMA}.dwd_risk_order_complete_di
+    where grass_date <= date('${bizdate}')
+      and grass_date > date_sub(date('${bizdate}'), 180)
+      and coalesce(checkout_ip, '') <> ''
+      and get_ip_to_city(checkout_ip)[4] is not null
+      and tz_type = 'local'
+      and grass_region in ${batch_region_pm_v2}
+      and is_physical_product_order = 'Y'
+    group by
+        buyer_id
+        ,grass_region
+        ,get_ip_to_city(checkout_ip)[4]
+) a1;

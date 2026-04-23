@@ -1,0 +1,1 @@
+sh /data/risk_mart/export_data/download_ads_2cscore_id_user_dpd_df.sh

@@ -1,0 +1,9 @@
+-- insert overwrite table ${SCHEMA}.ads_risk_my_user_invest_kyc_info partition(grass_date = '${grass_date}')
+-- select concat_ws('_', substring(md5(cast(user_id as string)), 0, 2), cast(user_id as string)) as rowkey
+--       ,cast(to_json(COLLECT_LIST(map(element_code, element_value))) as string) as qf
+-- from investment.ods__invest_user_info_my_db__investment_element_tab__df
+-- where user_id > 0 
+--   and element_code is not null 
+--   and char_length(element_value) > 0
+-- group by user_id
+-- ;

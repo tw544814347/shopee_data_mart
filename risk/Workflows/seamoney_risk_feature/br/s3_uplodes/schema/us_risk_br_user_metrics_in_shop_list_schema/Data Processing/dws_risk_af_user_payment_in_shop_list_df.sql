@@ -1,0 +1,53 @@
+drop table if exists ${SCHEMA}.dws_risk_af_user_payment_in_shop_list_df;
+create table if not exists ${SCHEMA}.dws_risk_af_user_payment_in_shop_list_df
+(
+    `rowkey` STRING COMMENT 'unique id of data', 
+    `kredit_10035_shop_id` STRING COMMENT 'amount of kredit_10035 by day', 
+    `kredit_10045_c2b_unique_merchant_id_string` STRING COMMENT 'amount of kredit_10045_c2b unique_merchant_id_string by day', 
+    `kredit_10045_c2b_mer_merchant_id_string` STRING COMMENT 'amount of kredit_10045_c2b mer_merchant_id_string by day', 
+    `kredit_10045_c2b_unique_merchant_id_string_terminal_label` STRING COMMENT 'amount of kredit_10045_c2b unique_merchant_id_string_terminal_label by day', 
+    `kredit_10045_c2b_unique_merchant_id_string_store_label_terminal_label` STRING COMMENT 'amount of kredit_10045_c2b unique_merchant_id_string_store_label_terminal_label by day', 
+    `kredit_10045_c2b_unique_merchant_id_string_gcash` STRING COMMENT 'amount of kredit_10045_c2b unique_merchant_id_string_gcash by day', 
+    `kredit_10045_jumpapp_unique_merchant_id_string` STRING COMMENT 'amount of kredit_10045_jumpapp unique_merchant_id_string by day', 
+    `kredit_10045_jumpapp_mer_merchant_id_string` STRING COMMENT 'amount of kredit_10045_jumpapp mer_merchant_id_string by day', 
+    `kredit_10045_jumpapp_unique_merchant_id_string_terminal_label` STRING COMMENT 'amount of kredit_10045_jumpapp unique_merchant_id_string_terminal_label by day', 
+    `kredit_10045_jumpapp_unique_merchant_id_string_store_label_terminal_label` STRING COMMENT 'amount of kredit_10045_jumpapp unique_merchant_id_string_store_label_terminal_label by day', 
+    `kredit_10045_jumpapp_unique_merchant_id_string_gcash` STRING COMMENT 'amount of kredit_10045_jumpapp unique_merchant_id_string_gcash by day', 
+    `kredit_10045_p2p_p2p_bank_account_id` STRING COMMENT 'amount of kredit_10045_p2p p2p_bank_account_id by day',
+    `kredit_10045_p2p_p2p_bank_account_name` STRING COMMENT 'amount of kredit_10045_p2p p2p_bank_account_name by day',
+    `kredit_10055_unique_merchant_id_string` STRING COMMENT 'amount of kredit_10055 unique_merchant_id_string by day', 
+    `kredit_10055_mer_merchant_id_string` STRING COMMENT 'amount of kredit_10055 mer_merchant_id_string by day', 
+    `kredit_10055_unique_merchant_id_string_terminal_label` STRING COMMENT 'amount of kredit_10055 unique_merchant_id_string_terminal_label by day', 
+    `kredit_10055_unique_merchant_id_string_store_label_terminal_label` STRING COMMENT 'amount of kredit_10055 unique_merchant_id_string_store_label_terminal_label by day', 
+    `kredit_10055_unique_merchant_id_string_gcash` STRING COMMENT 'amount of kredit_10055 unique_merchant_id_string_gcash by day', 
+    `kredit_10075_store_id` STRING COMMENT 'amount of kredit_10075 by day', 
+    `kredit_10095_unique_merchant_id` STRING, 
+    `kredit_10035_shop_id_unq` STRING COMMENT 'count of kredit_10035 by day', 
+    `kredit_10045_c2b_unique_merchant_id_string_unq` STRING COMMENT 'count of kredit_10045_c2b unique_merchant_id_string by day', 
+    `kredit_10045_c2b_mer_merchant_id_string_unq` STRING COMMENT 'count of kredit_10045_c2b mer_merchant_id_string by day', 
+    `kredit_10045_c2b_unique_merchant_id_string_terminal_label_unq` STRING COMMENT 'count of kredit_10045_c2b unique_merchant_id_string_terminal_label by day', 
+    `kredit_10045_c2b_unique_merchant_id_string_store_label_terminal_label_unq` STRING COMMENT 'count of kredit_10045_c2b unique_merchant_id_string_store_label_terminal_label by day', 
+    `kredit_10045_c2b_unique_merchant_id_string_gcash_unq` STRING COMMENT 'count of kredit_10045_c2b unique_merchant_id_string_gcash by day', 
+    `kredit_10045_jumpapp_unique_merchant_id_string_unq` STRING COMMENT 'count of kredit_10045_jumpapp unique_merchant_id_string by day', 
+    `kredit_10045_jumpapp_mer_merchant_id_string_unq` STRING COMMENT 'count of kredit_10045_jumpapp mer_merchant_id_string by day', 
+    `kredit_10045_jumpapp_unique_merchant_id_string_terminal_label_unq` STRING COMMENT 'count of kredit_10045_jumpapp unique_merchant_id_string_terminal_label by day', 
+    `kredit_10045_jumpapp_unique_merchant_id_string_store_label_terminal_label_unq` STRING COMMENT 'count of kredit_10045_jumpapp unique_merchant_id_string_store_label_terminal_label by day', 
+    `kredit_10045_jumpapp_unique_merchant_id_string_gcash_unq` STRING COMMENT 'count of kredit_10045_jumpapp unique_merchant_id_string_gcash by day', 
+    `kredit_10045_p2p_p2p_bank_account_id_unq` STRING COMMENT 'count of kredit_10045_p2p p2p_bank_account_id by day',
+    `kredit_10045_p2p_p2p_bank_account_name_unq` STRING COMMENT 'count of kredit_10045_p2p p2p_bank_account_name by day',
+    `kredit_10055_unique_merchant_id_string_unq` STRING COMMENT 'count of kredit_10055 unique_merchant_id_string by day', 
+    `kredit_10055_mer_merchant_id_string_unq` STRING COMMENT 'count of kredit_10055 mer_merchant_id_string by day', 
+    `kredit_10055_unique_merchant_id_string_terminal_label_unq` STRING COMMENT 'count of kredit_10055 unique_merchant_id_string_terminal_label by day', 
+    `kredit_10055_unique_merchant_id_string_store_label_terminal_label_unq` STRING COMMENT 'count of kredit_10055 unique_merchant_id_string_store_label_terminal_label by day', 
+    `kredit_10055_unique_merchant_id_string_gcash_unq` STRING COMMENT 'count of kredit_10055 unique_merchant_id_string_gcash by day', 
+    `kredit_10075_store_id_unq` STRING COMMENT 'count of kredit_10075 by day', 
+    `kredit_10095_unique_merchant_id_unq` STRING
+)
+partitioned by
+(
+    grass_region   string          comment         'partition key'
+    ,grass_date    string          comment         'partition key, yyyy-MM-dd'
+)
+stored as orc tblproperties ("orc.compress"="SNAPPY","orc.stripe.size"="2147483648")
+location '${HDFS_PATH}/risk_mart/dws/dws_risk_af_user_payment_in_shop_list_df';
+msck repair table ${SCHEMA}.dws_risk_af_user_payment_in_shop_list_df;

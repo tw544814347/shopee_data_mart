@@ -1,0 +1,1 @@
+# python /ldap_home/zongyi.lu/risk/python/ads_risk_tw_seller_info_to_s3.py 'risk-feature' 'live'

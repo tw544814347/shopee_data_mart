@@ -1,0 +1,55 @@
+drop table if exists ${SCHEMA}.ads_risk_profile_user_df;
+create external table if not exists ${SCHEMA}.ads_risk_profile_user_df
+(
+    user_id	                                           bigint  comment 'shopee user id'
+    ,shop_id                                           bigint  comment 'shopee shop id'
+    ,config_addr_list_td                               string  comment 'address list for all historical user config'
+    ,frequency_shopee_df_list_1y                       string  comment 'frequency shopee device fingerprint list'
+    ,frequency_hex_hash_shopee_df_list_1y              string  comment 'frequency hex hashed shopee device fingerprint list'
+    ,frequency_tongdun_device_id_list_1y               string  comment 'frequency tongdun device id list'
+    ,frequency_city_name_list_6m                       string  comment 'frequency city name list'
+    ,frequency_city_name_list_without_proxy_6m         string  comment 'frequency city name list in 6m'
+    ,frequency_phone_list_td                           string  comment 'frequency phone list'
+    ,fst_lvl_network_user_id_list_td                   string  comment 'first level network user id list'
+    ,silence_day_cnt_td	                               int     comment 'silence days'
+    ,frequency_shopee_df_list_seller_1y                string  comment 'login 30days in a year shopee device fingerprint list'
+    ,frequency_hex_hash_shopee_df_list_seller_1y       string  comment 'login 30days in a year and frequency hex hashed shopee device fingerprint list'
+    ,frequency_tongdun_device_id_list_seller_1y        string  comment 'login 30days in a year and frequency tongdun device id list'
+    ,shopee_registration_timestamp                     bigint  comment 'shopee registration in unix timestamp'
+    ,shopee_loyalty                                    string  comment 'user loyalty tier id'
+    ,frequency_sz_dfp_device_id_list_1y                string  comment 'frequency sz device id list'
+    ,frequency_sz_dfp_device_id_list_seller_1y         string  comment 'login 30days in a year and frequency tongdun device id list'
+    ,fst_lvl_network_user_id_list_sz_dfp_td            string  comment 'first level network user id list szdf' 
+    ,login_szdf_3d                                     string  comment 'user last 3 days login szdf list'
+    ,login_szdf_7d                                     string  comment 'user last 7 days login szdf list'
+    ,login_szdf_14d                                    string  comment 'user last 14 days login szdf list'
+    ,login_szdf_30d                                    string  comment 'user last 30 days login szdf list'
+    ,login_szdf_60d                                    string  comment 'user last 60 days login szdf list'
+    ,login_bad_szdf_3d                                 string  comment 'user last 3 days login bad szdf list'
+    ,login_bad_szdf_7d                                 string  comment 'user last 7 days login bad szdf list'
+    ,login_bad_szdf_14d                                string  comment 'user last 14 days login bad szdf list'
+    ,login_bad_szdf_30d                                string  comment 'user last 30 days login bad szdf list'
+    ,login_bad_szdf_60d                                string  comment 'user last 60 days login bad szdf list'
+    ,buyer_login_days_in_14d                           bigint  comment 'number of days with login in last 14 days'
+    ,buyer_login_days_in_30d                           bigint  comment 'number of days with login in last 30 days'
+    ,buyer_login_days_in_60d                           bigint  comment 'number of days with login in last 60 days'
+    ,buyer_login_days_in_180d                          bigint  comment 'number of days with login in last 180 days'    
+    ,frequency_city_name_list_6m_new                   string  comment 'frequency city name list(last 180d)'
+    ,frequency_sz_dfp_device_id_list_seller_1y_v2      string  comment 'frequency_sz_dfp_device_id_list_seller_1y_v2'
+    ,frequency_sz_dfp_device_id_list_1y_v3              string  comment 'frequency_sz_dfp_device_id_list_1y_v3'
+    ,frequency_sz_dfp_device_id_list_seller_1y_v3      string  comment 'frequency_sz_dfp_device_id_list_seller_1y_v3'
+    ,szdf_ever_login_1y                                string  comment 'szdf_ever_login_1y'
+    ,silence_day_cnt_td_v3                             bigint  comment 'silence_day_cnt_td_v3'
+    ,frequency_city_name_list_6m_v3                    string  comment 'frequency_city_name_list_6m_v3'
+    ,is_svip_active                                   bigint comment 'svip active status'
+)
+comment 'the address user configured'
+partitioned by
+(
+     tz_type        string          comment         'timezone type'
+    ,grass_region   string          comment         'partition key'
+    ,grass_date     string            comment         'partition key, yyyy-MM-dd'
+)
+stored as orc tblproperties ("orc.compress"="zstd")
+location '${HDFS_PATH}/risk_mart/ads/ads_risk_profile_user_df';
+msck repair table ${SCHEMA}.ads_risk_profile_user_df;

@@ -1,0 +1,40 @@
+---
+title: "deprecated_workflow/ads_reg_risk_finish_ticket_info_df 表血缘关系图"
+---
+graph LR
+    subgraph 外部来源表
+        __schema__ads_credit_id_risk_finish_ticket_info_df["schema.ads_credit_id_risk_finish_ticket_info_df"]
+        __schema__ads_credit_my_risk_finish_ticket_info_df["schema.ads_credit_my_risk_finish_ticket_info_df"]
+        __schema__ads_credit_ph_risk_finish_ticket_info_df["schema.ads_credit_ph_risk_finish_ticket_info_df"]
+        __schema__ads_credit_th_risk_finish_ticket_info_df["schema.ads_credit_th_risk_finish_ticket_info_df"]
+        __schema__ads_credit_vn_risk_finish_ticket_info_df["schema.ads_credit_vn_risk_finish_ticket_info_df"]
+        __schema__ads_spp_id_risk_finish_ticket_info_df["schema.ads_spp_id_risk_finish_ticket_info_df"]
+        __schema__ads_spp_my_risk_finish_ticket_info_df["schema.ads_spp_my_risk_finish_ticket_info_df"]
+        __schema__ads_spp_ph_risk_finish_ticket_info_df["schema.ads_spp_ph_risk_finish_ticket_info_df"]
+        __schema__ads_spp_th_risk_finish_ticket_info_df["schema.ads_spp_th_risk_finish_ticket_info_df"]
+        __schema__ads_spp_vn_risk_finish_ticket_info_df["schema.ads_spp_vn_risk_finish_ticket_info_df"]
+        risk_dwd_credit___region__risk_ticket_df["risk.dwd_credit_region_risk_ticket_df"]
+        risk_dwd_credit___region__risk_ticket_ops_df["risk.dwd_credit_region_risk_ticket_ops_df"]
+        risk_dwd_spp___region__risk_ticket_df["risk.dwd_spp_region_risk_ticket_df"]
+        risk_dwd_spp___region__risk_ticket_ops_df["risk.dwd_spp_region_risk_ticket_ops_df"]
+    end
+    subgraph 目标输出表
+        __schema__ads_credit___region__risk_finish_ticket_info_df[["schema.ads_credit_region_risk_finish_ticket_info_df"]]
+        __schema__ads_credit_reg_risk_finish_ticket_info_df[["schema.ads_credit_reg_risk_finish_ticket_info_df"]]
+        __schema__ads_spp___region__risk_finish_ticket_info_df[["schema.ads_spp_region_risk_finish_ticket_info_df"]]
+        __schema__ads_spp_reg_risk_finish_ticket_info_df[["schema.ads_spp_reg_risk_finish_ticket_info_df"]]
+    end
+    risk_dwd_credit___region__risk_ticket_df --> __schema__ads_credit___region__risk_finish_ticket_info_df
+    risk_dwd_credit___region__risk_ticket_ops_df --> __schema__ads_credit___region__risk_finish_ticket_info_df
+    __schema__ads_credit_vn_risk_finish_ticket_info_df --> __schema__ads_credit_reg_risk_finish_ticket_info_df
+    __schema__ads_credit_id_risk_finish_ticket_info_df --> __schema__ads_credit_reg_risk_finish_ticket_info_df
+    __schema__ads_credit_ph_risk_finish_ticket_info_df --> __schema__ads_credit_reg_risk_finish_ticket_info_df
+    __schema__ads_credit_th_risk_finish_ticket_info_df --> __schema__ads_credit_reg_risk_finish_ticket_info_df
+    __schema__ads_credit_my_risk_finish_ticket_info_df --> __schema__ads_credit_reg_risk_finish_ticket_info_df
+    risk_dwd_spp___region__risk_ticket_df --> __schema__ads_spp___region__risk_finish_ticket_info_df
+    risk_dwd_spp___region__risk_ticket_ops_df --> __schema__ads_spp___region__risk_finish_ticket_info_df
+    __schema__ads_spp_th_risk_finish_ticket_info_df --> __schema__ads_spp_reg_risk_finish_ticket_info_df
+    __schema__ads_spp_my_risk_finish_ticket_info_df --> __schema__ads_spp_reg_risk_finish_ticket_info_df
+    __schema__ads_spp_ph_risk_finish_ticket_info_df --> __schema__ads_spp_reg_risk_finish_ticket_info_df
+    __schema__ads_spp_id_risk_finish_ticket_info_df --> __schema__ads_spp_reg_risk_finish_ticket_info_df
+    __schema__ads_spp_vn_risk_finish_ticket_info_df --> __schema__ads_spp_reg_risk_finish_ticket_info_df

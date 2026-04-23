@@ -1,0 +1,1 @@
+-- MSCK REPAIR TABLE risk.dwd_risk_slik_combine_collateral_info_di
